@@ -94,10 +94,7 @@ import java.util.Locale;
     mBootstrapServerUrls.clear();
     switch (service) {
       case PRODUCTION:
-        if (CHINA_LOCALES.contains(mLocale)) {
-          mBootstrapServerUrls.add(EvernoteSession.HOST_CHINA);
-        }
-        mBootstrapServerUrls.add(EvernoteSession.HOST_PRODUCTION);
+        mBootstrapServerUrls.add(EvernoteSession.HOST_CHINA);
         break;
 
       case SANDBOX:

@@ -29,7 +29,7 @@ public class EvernoteOAuthActivity extends FragmentActivity {
     private static final Cat CAT = new Cat("EvernoteOAuthActivity");
 
     private static final String HOST_EVERNOTE = "www.evernote.com";
-    private static final String HOST_SANDBOX = "sandbox.evernote.com";
+    private static final String HOST_SANDBOX = "sandbox.yinxiang.com";
     private static final String HOST_CHINA = "app.yinxiang.com";
 
     public static Intent createIntent(Context context, String url) {

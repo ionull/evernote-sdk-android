@@ -12,7 +12,7 @@ Prerequisites
 -------------
 In order to use the code in this SDK, you need to obtain an API key from https://dev.evernote.com/doc/. You'll also find full API documentation on that page.
 
-In order to run the demo code, you need a user account on the sandbox service where you will do your development. Sign up for an account at https://sandbox.evernote.com/Registration.action
+In order to run the demo code, you need a user account on the sandbox service where you will do your development. Sign up for an account at https://sandbox.yinxiang.com/Registration.action
 
 The instructions below assume you have the latest [Android SDK](http://developer.android.com/sdk/index.html).
 

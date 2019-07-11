@@ -74,7 +74,7 @@ import java.util.Locale;
 public final class EvernoteSession {
 
     // Standard hostnames for bootstrap detection
-    public static final String HOST_SANDBOX = "https://sandbox.evernote.com";
+    public static final String HOST_SANDBOX = "https://sandbox.yinxiang.com";
     public static final String HOST_PRODUCTION = "https://www.evernote.com";
     public static final String HOST_CHINA = "https://app.yinxiang.com";
 
@@ -278,12 +278,12 @@ public final class EvernoteSession {
 
     /**
      * Evernote Service to use with the bootstrap profile detection.
-     * Sandbox will return profiles referencing sandbox.evernote.com
+     * Sandbox will return profiles referencing sandbox.yinxiang.com
      * Production will return evernote.com and app.yinxiang.com
      */
     public enum EvernoteService implements Parcelable {
         /**
-         * References sandbox.evernote.com.
+         * References sandbox.yinxiang.com.
          */
         SANDBOX,
 
