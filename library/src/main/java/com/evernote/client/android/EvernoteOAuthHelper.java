@@ -19,6 +19,7 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.OAuthEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -78,6 +79,17 @@ public class EvernoteOAuthHelper {
         if (info == null) {
             return null;
         }
+
+	if (info.getProfiles() != null) {
+	    List<BootstrapProfile> profiles = new ArrayList<BootstrapProfile>();
+	    for (BootstrapProfile profile: info.getProfiles()){
+		if (profile.getSettings().getServiceHost().equals("app.yinxiang.com") ||
+		    profile.getSettings().getServiceHost().equals("sandbox.yinxiang.com")){
+		    profiles.add(profile);
+		}
+	    }
+	    return profiles;
+	}
 
         return info.getProfiles();
     }
