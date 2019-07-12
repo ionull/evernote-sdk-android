@@ -14,7 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.evernote.android.demo.R;
 import com.evernote.android.demo.fragment.note.CreateNoteDialogFragment;
@@ -88,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         });
         navigationView.getMenu().findItem(mSelectedNavItem).setChecked(true);
 
-	LinearLayout navHeader = (LinearLayout) navigationView.getHeaderView(0);
-	mTextViewUserName = (TextView) navHeader.findViewById(R.id.textView_user_name);
-	navHeader.setOnClickListener(new View.OnClickListener() {
+        LinearLayout navHeader = (LinearLayout) navigationView.getHeaderView(0);
+        mTextViewUserName = (TextView) navHeader.findViewById(R.id.textView_user_name);
+        navHeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUser != null) {

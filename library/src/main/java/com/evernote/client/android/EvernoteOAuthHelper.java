@@ -80,16 +80,16 @@ public class EvernoteOAuthHelper {
             return null;
         }
 
-	if (info.getProfiles() != null) {
-	    List<BootstrapProfile> profiles = new ArrayList<BootstrapProfile>();
-	    for (BootstrapProfile profile: info.getProfiles()){
-		if (profile.getSettings().getServiceHost().equals("app.yinxiang.com") ||
-		    profile.getSettings().getServiceHost().equals("sandbox.yinxiang.com")){
-		    profiles.add(profile);
-		}
-	    }
-	    return profiles;
-	}
+        if (info.getProfiles() != null) {
+            List<BootstrapProfile> profiles = new ArrayList<BootstrapProfile>();
+            for (BootstrapProfile profile : info.getProfiles()) {
+                if (profile.getSettings().getServiceHost().equals("app.yinxiang.com")
+                    || profile.getSettings().getServiceHost().equals("sandbox.yinxiang.com")) {
+                    profiles.add(profile);
+                }
+            }
+            return profiles;
+        }
 
         return info.getProfiles();
     }
