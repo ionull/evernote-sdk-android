@@ -24,23 +24,7 @@ Add the library as a dependency in your build.gradle file.
 
 ```groovy
 dependencies {
-    compile 'com.evernote:android-sdk:2.0.0-RC4'
-}
-```
-
-##### (Optional) Using a snapshot build for early access previews
-
-Add Sonatype's snapshot repository in your build script.
-```groovy
-maven {
-    url "https://oss.sonatype.org/content/repositories/snapshots"
-}
-```
-
-Add the snapshot depdendency.
-```groovy
-dependencies {
-    compile 'com.evernote:android-sdk:2.0.0-SNAPSHOT'
+    compile 'com.yinxiang:android-sdk:2.0.0-RC4'
 }
 ```
 
