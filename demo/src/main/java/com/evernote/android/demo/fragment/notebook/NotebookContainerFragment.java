@@ -1,6 +1,6 @@
 package com.evernote.android.demo.fragment.notebook;
 
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.evernote.android.demo.R;
 import com.evernote.android.demo.fragment.AbstractContainerFragment;

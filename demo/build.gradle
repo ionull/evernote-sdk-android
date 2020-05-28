@@ -28,14 +28,14 @@ android {
     lintOptions {
         abortOnError true
 
-        htmlOutput file("$project.buildDir/reports/lint/lint.html")
-        xmlOutput file("$project.buildDir/reports/lint/lint.xml")
+        //htmlOutput file("$project.buildDir/reports/lint/lint.html")
+        //xmlOutput file("$project.buildDir/reports/lint/lint.xml")
     }
 }
 
 dependencies {
     compile project(':library')
-    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
-    compile "com.android.support:design:$rootProject.ext.supportLibVersion"
+    compile 'androidx.recyclerview:recyclerview:1.0.0'
+    compile 'com.google.android.material:material:1.0.0'
     compile 'com.evernote:android-intent:1.0.1'
 }

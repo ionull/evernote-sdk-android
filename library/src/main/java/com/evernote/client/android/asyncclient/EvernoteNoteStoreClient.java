@@ -1,6 +1,6 @@
 package com.evernote.client.android.asyncclient;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.evernote.client.android.helper.EvernotePreconditions;
 import com.evernote.edam.error.EDAMNotFoundException;

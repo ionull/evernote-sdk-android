@@ -26,7 +26,7 @@
 package com.evernote.client.conn.mobile;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 

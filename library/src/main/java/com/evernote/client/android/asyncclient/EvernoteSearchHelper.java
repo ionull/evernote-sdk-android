@@ -1,8 +1,9 @@
 package com.evernote.client.android.asyncclient;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.evernote.client.android.EvernoteSession;
 import com.evernote.client.android.helper.EvernotePreconditions;

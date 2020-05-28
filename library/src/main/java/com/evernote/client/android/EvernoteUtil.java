@@ -35,11 +35,12 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.ValueCallback;
+
+import androidx.annotation.Nullable;
 
 import com.evernote.client.android.helper.Cat;
 import com.evernote.edam.type.Resource;

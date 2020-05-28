@@ -4,15 +4,17 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.evernote.android.demo.R;
 import com.evernote.android.demo.fragment.note.NoteContainerFragment;
+import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * @author rwondratschek

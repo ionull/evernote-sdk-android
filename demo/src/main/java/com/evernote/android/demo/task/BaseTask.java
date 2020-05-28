@@ -1,11 +1,12 @@
 package com.evernote.android.demo.task;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+
 import android.view.View;
 
 import com.evernote.android.demo.R;
@@ -13,6 +14,7 @@ import com.evernote.android.demo.util.Util;
 import com.evernote.android.demo.util.ViewUtil;
 import com.evernote.client.android.helper.Cat;
 import com.evernote.edam.error.EDAMUserException;
+import com.google.android.material.snackbar.Snackbar;
 
 import net.vrallev.android.task.Task;
 import net.vrallev.android.task.TaskExecutor;

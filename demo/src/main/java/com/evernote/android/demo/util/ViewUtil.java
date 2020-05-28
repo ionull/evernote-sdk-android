@@ -1,13 +1,14 @@
 package com.evernote.android.demo.util;
 
-import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.evernote.android.demo.R;
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * @author rwondratschek
