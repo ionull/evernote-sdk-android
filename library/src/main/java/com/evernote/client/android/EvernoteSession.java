@@ -32,11 +32,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.fragment.app.FragmentActivity;
 
+import com.evernote.client.EvernoteKeySecret;
 import com.evernote.client.android.asyncclient.EvernoteClientFactory;
 import com.evernote.client.android.helper.Cat;
 import com.evernote.client.android.helper.EvernotePreconditions;
 import com.evernote.client.android.login.EvernoteLoginActivity;
 import com.evernote.client.android.login.EvernoteLoginFragment;
+import com.evernote.edam.userstore.BootstrapProfile;
 
 import java.util.Locale;
 
@@ -96,8 +98,8 @@ public final class EvernoteSession {
     }
 
     private Context mApplicationContext;
-    private String mConsumerKey;
-    private String mConsumerSecret;
+    private EvernoteKeySecret mConsumerInt;
+    private EvernoteKeySecret mConsumerChina;
     private EvernoteService mEvernoteService;
     private AuthenticationResult mAuthenticationResult;
     private boolean mSupportAppLinkedNotebooks;
@@ -190,6 +192,18 @@ public final class EvernoteSession {
         return mAuthenticationResult;
     }
 
+    public EvernoteKeySecret getConsumer(BootstrapProfile profile) {
+        if (profile.getName().contentEquals(EvernoteOAuthHelper.CHINA_PROFILE_NAME)) return mConsumerChina; else return mConsumerInt;
+    }
+
+    public String getConsumerKey(BootstrapProfile profile) {
+        return getConsumer(profile).consumerKey;
+    }
+
+    public String getConsumerSecret(BootstrapProfile profile) {
+        return getConsumer(profile).consumerSecret;
+    }
+
     /**
      * Recommended approach to authenticate the user. If the main Evernote app is installed and up to date,
      * the app is launched and authenticates the user. Otherwise the old OAuth process is launched and
@@ -204,7 +218,7 @@ public final class EvernoteSession {
      * @param activity The {@link FragmentActivity} holding the progress dialog.
      */
     public void authenticate(FragmentActivity activity) {
-        authenticate(activity, EvernoteLoginFragment.create(mConsumerKey, mConsumerSecret, mSupportAppLinkedNotebooks, mLocale));
+        authenticate(activity, EvernoteLoginFragment.create(mSupportAppLinkedNotebooks, mLocale));
     }
 
     /**
@@ -227,7 +241,7 @@ public final class EvernoteSession {
      * @param activity The {@link Activity} launching the {@link EvernoteLoginActivity}.
      */
     public void authenticate(Activity activity) {
-        activity.startActivityForResult(EvernoteLoginActivity.createIntent(activity, mConsumerKey, mConsumerSecret, mSupportAppLinkedNotebooks, mLocale), REQUEST_CODE_LOGIN);
+        activity.startActivityForResult(EvernoteLoginActivity.createIntent(activity, mSupportAppLinkedNotebooks, mLocale), REQUEST_CODE_LOGIN);
     }
 
     /**
@@ -405,14 +419,12 @@ public final class EvernoteSession {
         /**
          * Creates a new instance with this consumer key and secret pair.
          *
-         * @param consumerKey Your consumer key.
-         * @param consumerSecret Your consumer secret.
          * @return The new created session. Call {@link #asSingleton()} to make reuse the session in the SDK.
          */
-        public EvernoteSession build(String consumerKey, String consumerSecret) {
+        public EvernoteSession build(String consumerKeyInt, String consumerSecretInt, String consumerKeyChina, String consumerSecretChina) {
             EvernoteSession evernoteSession = new EvernoteSession();
-            evernoteSession.mConsumerKey = EvernotePreconditions.checkNotEmpty(consumerKey);
-            evernoteSession.mConsumerSecret = EvernotePreconditions.checkNotEmpty(consumerSecret);
+            evernoteSession.mConsumerInt = new EvernoteKeySecret(EvernotePreconditions.checkNotEmpty(consumerKeyInt), EvernotePreconditions.checkNotEmpty(consumerSecretInt));
+            evernoteSession.mConsumerChina = new EvernoteKeySecret(EvernotePreconditions.checkNotEmpty(consumerKeyChina), EvernotePreconditions.checkNotEmpty(consumerSecretChina));
             evernoteSession.mAuthenticationResult = AuthenticationResult.fromPreferences(mContext);
 
             return build(evernoteSession);

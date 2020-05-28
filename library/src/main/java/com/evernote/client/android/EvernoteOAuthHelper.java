@@ -19,7 +19,6 @@ import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.OAuthEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -46,8 +45,8 @@ public class EvernoteOAuthHelper {
     protected static final Pattern USER_ID_REGEX = Pattern.compile("edam_userId=([^&]+)");
 
     protected final EvernoteSession mSession;
-    protected final String mConsumerKey;
-    protected final String mConsumerSecret;
+    //protected final String mConsumerKey;
+    //protected final String mConsumerSecret;
     protected final boolean mSupportAppLinkedNotebooks;
     protected final Locale mLocale;
 
@@ -56,14 +55,20 @@ public class EvernoteOAuthHelper {
 
     protected Token mRequestToken;
 
-    public EvernoteOAuthHelper(EvernoteSession session, String consumerKey, String consumerSecret, boolean supportAppLinkedNotebooks) {
-        this(session, consumerKey, consumerSecret, supportAppLinkedNotebooks, Locale.getDefault());
+    public EvernoteOAuthHelper(EvernoteSession session
+            //, String consumerKey, String consumerSecret
+            , boolean supportAppLinkedNotebooks) {
+        this(session
+                //, consumerKey, consumerSecret
+                , supportAppLinkedNotebooks, Locale.getDefault());
     }
 
-    public EvernoteOAuthHelper(EvernoteSession session, String consumerKey, String consumerSecret, boolean supportAppLinkedNotebooks, Locale locale) {
+    public EvernoteOAuthHelper(EvernoteSession session
+            //, String consumerKey, String consumerSecret
+            , boolean supportAppLinkedNotebooks, Locale locale) {
         mSession = EvernotePreconditions.checkNotNull(session);
-        mConsumerKey = EvernotePreconditions.checkNotEmpty(consumerKey);
-        mConsumerSecret = EvernotePreconditions.checkNotEmpty(consumerSecret);
+        //mConsumerKey = EvernotePreconditions.checkNotEmpty(consumerKey);
+        //mConsumerSecret = EvernotePreconditions.checkNotEmpty(consumerSecret);
         mSupportAppLinkedNotebooks = supportAppLinkedNotebooks;
         mLocale = EvernotePreconditions.checkNotNull(locale);
     }
@@ -78,17 +83,6 @@ public class EvernoteOAuthHelper {
         BootstrapInfo info = infoWrapper.getBootstrapInfo();
         if (info == null) {
             return null;
-        }
-
-        if (info.getProfiles() != null) {
-            List<BootstrapProfile> profiles = new ArrayList<BootstrapProfile>();
-            for (BootstrapProfile profile : info.getProfiles()) {
-                if (profile.getSettings().getServiceHost().equals("app.yinxiang.com")
-                    || profile.getSettings().getServiceHost().equals("sandbox.yinxiang.com")) {
-                    profiles.add(profile);
-                }
-            }
-            return profiles;
         }
 
         return info.getProfiles();
@@ -111,7 +105,7 @@ public class EvernoteOAuthHelper {
             setBootstrapProfile(getDefaultBootstrapProfile(bootstrapProfiles));
         }
 
-        mOAuthService = createOAuthService(mBootstrapProfile, mConsumerKey, mConsumerSecret);
+        mOAuthService = createOAuthService(mBootstrapProfile, EvernoteSession.getInstance().getConsumerKey(mBootstrapProfile), EvernoteSession.getInstance().getConsumerSecret(mBootstrapProfile));
     }
 
     public Token createRequestToken() {

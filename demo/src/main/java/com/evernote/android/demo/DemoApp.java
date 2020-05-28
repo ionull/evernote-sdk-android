@@ -21,8 +21,10 @@ public class DemoApp extends Application {
      * Your Evernote API key. See http://dev.evernote.com/documentation/cloud/
      * Please obfuscate your code to help keep these values secret.
      */
-    private static final String CONSUMER_KEY = "Your consumer key";
-    private static final String CONSUMER_SECRET = "Your consumer secret";
+    private static final String CONSUMER_KEY_INT = "Your consumer key";
+    private static final String CONSUMER_SECRET_INT = "Your consumer secret";
+    private static final String CONSUMER_KEY_CHINA = "Your consumer key";
+    private static final String CONSUMER_SECRET_CHINA = "Your consumer secret";
 
     /*
      * Initial development is done on Evernote's testing service, the sandbox.
@@ -42,20 +44,36 @@ public class DemoApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        String consumerKey;
-        if ("Your consumer key".equals(CONSUMER_KEY)) {
-            consumerKey = BuildConfig.EVERNOTE_CONSUMER_KEY;
+        String consumerKeyInt;
+        if ("Your consumer key".equals(CONSUMER_KEY_INT)) {
+            consumerKeyInt = BuildConfig.EVERNOTE_CONSUMER_KEY_INT;
         } else {
             // isn't the default value anymore
-            consumerKey = CONSUMER_KEY;
+            consumerKeyInt = CONSUMER_KEY_INT;
         }
 
-        String consumerSecret;
-        if ("Your consumer secret".equals(CONSUMER_SECRET)) {
-            consumerSecret = BuildConfig.EVERNOTE_CONSUMER_SECRET;
+        String consumerSecretInt;
+        if ("Your consumer secret".equals(CONSUMER_SECRET_INT)) {
+            consumerSecretInt = BuildConfig.EVERNOTE_CONSUMER_SECRET_INT;
         } else {
             // isn't the default value anymore
-            consumerSecret = CONSUMER_SECRET;
+            consumerSecretInt = CONSUMER_SECRET_INT;
+        }
+
+        String consumerKeyChina;
+        if ("Your consumer key".equals(CONSUMER_KEY_CHINA)) {
+            consumerKeyChina = BuildConfig.EVERNOTE_CONSUMER_KEY_CHINA;
+        } else {
+            // isn't the default value anymore
+            consumerKeyChina = CONSUMER_KEY_CHINA;
+        }
+
+        String consumerSecretChina;
+        if ("Your consumer secret".equals(CONSUMER_SECRET_CHINA)) {
+            consumerSecretChina = BuildConfig.EVERNOTE_CONSUMER_SECRET_CHINA;
+        } else {
+            // isn't the default value anymore
+            consumerSecretChina = CONSUMER_SECRET_CHINA;
         }
 
         //Set up the Evernote singleton session, use EvernoteSession.getInstance() later
@@ -64,7 +82,7 @@ public class DemoApp extends Application {
                 .setSupportAppLinkedNotebooks(SUPPORT_APP_LINKED_NOTEBOOKS)
                 .setForceAuthenticationInThirdPartyApp(true)
 //                .setLocale(Locale.SIMPLIFIED_CHINESE)
-                .build(consumerKey, consumerSecret)
+                .build(consumerKeyInt, consumerSecretInt, consumerKeyChina, consumerSecretChina)
                 .asSingleton();
 
         registerActivityLifecycleCallbacks(new LoginChecker());

@@ -38,19 +38,18 @@ public class EvernoteLoginFragment extends DialogFragment implements EvernoteLog
 
     public static final String TAG = "EvernoteDialogFragment";
 
-    private static final String ARG_CONSUMER_KEY = "consumerKey";
-    private static final String ARG_CONSUMER_SECRET = "consumerSecret";
     private static final String ARG_SUPPORT_APP_LINKED_NOTEBOOKS = "supportAppLinkedNotebooks";
     private static final String ARG_LOCALE = "ARG_LOCALE";
 
     private static final String KEY_TASK = "KEY_TASK";
     private static final String KEY_RESULT_POSTED = "KEY_RESULT_POSTED";
 
-    public static EvernoteLoginFragment create(String consumerKey, String consumerSecret, boolean supportAppLinkedNotebooks, Locale locale) {
-        return create(EvernoteLoginFragment.class, consumerKey, consumerSecret, supportAppLinkedNotebooks, locale);
+    public static EvernoteLoginFragment create(
+            boolean supportAppLinkedNotebooks, Locale locale) {
+        return create(EvernoteLoginFragment.class, supportAppLinkedNotebooks, locale);
     }
 
-    public static <T extends EvernoteLoginFragment> T create(Class<T> subClass, String consumerKey, String consumerSecret, boolean supportAppLinkedNotebooks, Locale locale) {
+    public static <T extends EvernoteLoginFragment> T create(Class<T> subClass, boolean supportAppLinkedNotebooks, Locale locale) {
         T fragment;
         try {
             fragment = subClass.newInstance();
@@ -59,8 +58,6 @@ public class EvernoteLoginFragment extends DialogFragment implements EvernoteLog
         }
 
         Bundle args = new Bundle();
-        args.putString(ARG_CONSUMER_KEY, consumerKey);
-        args.putString(ARG_CONSUMER_SECRET, consumerSecret);
         args.putBoolean(ARG_SUPPORT_APP_LINKED_NOTEBOOKS, supportAppLinkedNotebooks);
         args.putSerializable(ARG_LOCALE, locale);
         fragment.setArguments(args);
@@ -78,8 +75,8 @@ public class EvernoteLoginFragment extends DialogFragment implements EvernoteLog
         if (savedInstanceState == null) {
             Bundle args = getArguments();
 
-            EvernoteOAuthHelper helper = new EvernoteOAuthHelper(EvernoteSession.getInstance(), args.getString(ARG_CONSUMER_KEY),
-                    args.getString(ARG_CONSUMER_SECRET), args.getBoolean(ARG_SUPPORT_APP_LINKED_NOTEBOOKS, true),
+            EvernoteOAuthHelper helper = new EvernoteOAuthHelper(EvernoteSession.getInstance()
+                    , args.getBoolean(ARG_SUPPORT_APP_LINKED_NOTEBOOKS, true),
                     (Locale) args.getSerializable(ARG_LOCALE));
 
             mTaskKey = TaskExecutor.getInstance().execute(new EvernoteLoginTask(helper, true), this);

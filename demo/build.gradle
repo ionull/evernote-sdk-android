@@ -14,8 +14,10 @@ android {
         versionName project.VERSION_NAME
         versionCode Integer.parseInt(project.VERSION_CODE)
 
-        buildConfigField "String", "EVERNOTE_CONSUMER_KEY", (project.hasProperty('EVERNOTE_CONSUMER_KEY') ? "\"$EVERNOTE_CONSUMER_KEY\"" : "\"Your consumer key\"")
-        buildConfigField "String", "EVERNOTE_CONSUMER_SECRET", (project.hasProperty('EVERNOTE_CONSUMER_SECRET') ? "\"$EVERNOTE_CONSUMER_SECRET\"" : "\"Your consumer secret\"")
+        buildConfigField "String", "EVERNOTE_CONSUMER_KEY_INT", (project.hasProperty('EVERNOTE_CONSUMER_KEY_INT') ? "\"$EVERNOTE_CONSUMER_KEY_INT\"" : "\"Your consumer key\"")
+        buildConfigField "String", "EVERNOTE_CONSUMER_SECRET_INT", (project.hasProperty('EVERNOTE_CONSUMER_SECRET_INT') ? "\"$EVERNOTE_CONSUMER_SECRET_INT\"" : "\"Your consumer secret\"")
+        buildConfigField "String", "EVERNOTE_CONSUMER_KEY_CHINA", (project.hasProperty('EVERNOTE_CONSUMER_KEY_CHINA') ? "\"$EVERNOTE_CONSUMER_KEY_CHINA\"" : "\"Your consumer key\"")
+        buildConfigField "String", "EVERNOTE_CONSUMER_SECRET_CHINA", (project.hasProperty('EVERNOTE_CONSUMER_SECRET_CHINA') ? "\"$EVERNOTE_CONSUMER_SECRET_CHINA\"" : "\"Your consumer secret\"")
         buildConfigField "String", "EVERNOTE_DEVELOPER_KEY", (project.hasProperty('EVERNOTE_DEVELOPER_KEY') ? "\"$EVERNOTE_DEVELOPER_KEY\"" : "null")
         buildConfigField "String", "EVERNOTE_NOTE_STORE_URL", (project.hasProperty('EVERNOTE_NOTE_STORE_URL') ? "\"$EVERNOTE_NOTE_STORE_URL\"" : "null")
     }
