@@ -31,7 +31,8 @@ public class EvernoteOAuthActivity extends FragmentActivity {
     private static final Cat CAT = new Cat("EvernoteOAuthActivity");
 
     private static final String HOST_EVERNOTE = "www.evernote.com";
-    private static final String HOST_SANDBOX = "sandbox.yinxiang.com";
+    private static final String HOST_SANDBOX = "sandbox.evernote.com";
+    private static final String HOST_SANDBOX_CHINA = "sandbox.yinxiang.com";
     private static final String HOST_CHINA = "app.yinxiang.com";
 
     public static Intent createIntent(Context context, String url) {
@@ -61,7 +62,11 @@ public class EvernoteOAuthActivity extends FragmentActivity {
         }
 
         String host = uri.getHost();
-        if (!HOST_EVERNOTE.equalsIgnoreCase(host) && !HOST_SANDBOX.equalsIgnoreCase(host) && !HOST_CHINA.equalsIgnoreCase(host)) {
+        if (!HOST_EVERNOTE.equalsIgnoreCase(host)
+                && !HOST_SANDBOX.equalsIgnoreCase(host)
+                && !HOST_SANDBOX_CHINA.equalsIgnoreCase(host)
+                && !HOST_CHINA.equalsIgnoreCase(host)
+        ) {
             CAT.w("unacceptable host, return cancelled");
             finish();
             return;

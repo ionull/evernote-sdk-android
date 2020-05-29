@@ -194,6 +194,10 @@ public class EvernoteOAuthHelper {
         Class<? extends Api> apiClass;
         switch (uri.toString()) {
             case EvernoteSession.HOST_SANDBOX:
+                apiClass = EvernoteApi.Sandbox.class;
+                break;
+
+            case EvernoteSession.HOST_SANDBOX_CHINA:
                 apiClass = YinxiangSandboxApi.class;
                 break;
 

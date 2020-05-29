@@ -94,11 +94,19 @@ import java.util.Locale;
     mBootstrapServerUrls.clear();
     switch (service) {
       case PRODUCTION:
-        mBootstrapServerUrls.add(EvernoteSession.HOST_CHINA);
+        if (CHINA_LOCALES.contains(mLocale)) {
+          mBootstrapServerUrls.add(EvernoteSession.HOST_CHINA);
+        } else {
+          mBootstrapServerUrls.add(EvernoteSession.HOST_PRODUCTION);
+        }
         break;
 
       case SANDBOX:
-        mBootstrapServerUrls.add(EvernoteSession.HOST_SANDBOX);
+        if (CHINA_LOCALES.contains(mLocale)) {
+          mBootstrapServerUrls.add(EvernoteSession.HOST_SANDBOX_CHINA);
+        } else {
+          mBootstrapServerUrls.add(EvernoteSession.HOST_SANDBOX);
+        }
         break;
     }
   }

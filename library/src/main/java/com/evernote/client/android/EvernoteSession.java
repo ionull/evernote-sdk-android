@@ -76,7 +76,8 @@ import java.util.Locale;
 public final class EvernoteSession {
 
     // Standard hostnames for bootstrap detection
-    public static final String HOST_SANDBOX = "https://sandbox.yinxiang.com";
+    public static final String HOST_SANDBOX = "https://sandbox.evernote.com";
+    public static final String HOST_SANDBOX_CHINA = "https://sandbox.yinxiang.com";
     public static final String HOST_PRODUCTION = "https://www.evernote.com";
     public static final String HOST_CHINA = "https://app.yinxiang.com";
 

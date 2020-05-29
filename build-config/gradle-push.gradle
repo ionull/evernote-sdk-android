@@ -40,8 +40,8 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                pom.groupId = 'com.yinxiang'
-                pom.artifactId = 'android-sdk'
+                pom.groupId = 'bz.tsung.android'
+                pom.artifactId = 'evernote'
                 pom.version = VERSION_NAME
 
                 repository(url: getReleaseRepositoryUrl()) {
@@ -52,23 +52,23 @@ afterEvaluate { project ->
                 }
 
                 pom.project {
-                    name 'Android-Yinxiang SDK'
+                    name 'Android-Evernote-Yinxiang SDK'
                     packaging 'aar'
-                    description 'Android library to access the Yinxiang API.'
-                    url 'https://github.com/yinxiang-dev/evernote-sdk-android'
-                    inceptionYear '2018'
+                    description 'Android library to access the Evernote/Yinxiang API.'
+                    url 'https://github.com/ionull/evernote-sdk-android'
+                    inceptionYear '2020'
 
                     scm {
-                        url 'http://github.com/yinxiang-dev/evernote-sdk-android/'
-                        connection 'scm:git:git://github.com/yinxiang-dev/evernote-sdk-android.git'
-                        developerConnection 'scm:git:git@github.com:yinxiang-dev/evernote-sdk-android.git'
+                        url 'http://github.com/ionull/evernote-sdk-android/'
+                        connection 'scm:git:git://github.com/ionull/evernote-sdk-android.git'
+                        developerConnection 'scm:git:git@github.com:ionull/evernote-sdk-android.git'
                     }
 
                     developers {
                         developer {
-                            name 'Feng Yue'
-                            email 'fyue@yinxiang.com'
-                            id 'fyue'
+                            name 'Tsung Wu'
+                            email 'tsung.bz@gmail.com'
+                            id 'ionull'
                             timezone '+8'
                             roles {
                                 role 'developer'
@@ -91,7 +91,7 @@ afterEvaluate { project ->
 
                     issueManagement {
                         system 'GitHub Issues'
-                        url 'https://github.com/yinxiang-dev/evernote-sdk-android/issues'
+                        url 'https://github.com/ionull/evernote-sdk-android/issues'
                     }
                 }
             }
