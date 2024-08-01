@@ -34,3 +34,5 @@ local.properties
 proguard-project.txt
 .DS_Store
 .tmp
+
+github.properties

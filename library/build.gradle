@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from: '../build-config/gradle-quality.gradle'
+//apply from: '../build-config/gradle-quality.gradle'
 
 dependencies {
     api 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -10,22 +10,19 @@ dependencies {
     api 'net.vrallev.android:android-task:1.0.7'
     api 'com.squareup.okhttp:okhttp:2.4.0'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:1.7.1'
-    api 'commons-codec:commons-codec:1.10'
+    api 'commons-codec:commons-codec:1.15'
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     resourcePrefix 'esdk_'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionName project.VERSION_NAME
-        versionCode Integer.parseInt(project.VERSION_CODE)
     }
 
     compileOptions {
@@ -41,4 +38,5 @@ android {
     }
 }
 
-apply from: '../build-config/gradle-push.gradle'
+//apply from: '../build-config/gradle-push.gradle'
+apply from: '../build-config/gradle-publish-github.gradle'
