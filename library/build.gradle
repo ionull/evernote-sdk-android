@@ -36,7 +36,13 @@ android {
         //htmlOutput file("$project.buildDir/reports/lint/lint.html")
         //xmlOutput file("$project.buildDir/reports/lint/lint.xml")
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
-//apply from: '../build-config/gradle-push.gradle'
-apply from: '../build-config/gradle-publish-github.gradle'
+apply from: '../build-config/gradle-push.gradle'
+//apply from: '../build-config/gradle-publish-github.gradle'

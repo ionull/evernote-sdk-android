@@ -1,129 +1,131 @@
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
-}
-
-def isLocal() {
-    return hasProperty('local') ? Boolean.parseBoolean(getProperty('local')) : true;
+    return !VERSION_NAME.contains("SNAPSHOT")
 }
 
 def getReleaseRepositoryUrl() {
-    if (isLocal()) {
-        return hasProperty('RELEASE_REPOSITORY_LOCAL') ? RELEASE_REPOSITORY_LOCAL : "file://${System.env.HOME}/.m2/repository"
-    } else {
-        return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-    }
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
 def getSnapshotRepositoryUrl() {
-    if (isLocal()) {
-        return hasProperty('SNAPSHOT_REPOSITORY_LOCAL') ? SNAPSHOT_REPOSITORY_LOCAL : "file://${System.env.HOME}/.m2/repository"
-    } else {
-        return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL : "https://oss.sonatype.org/content/repositories/snapshots/"
-    }
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
-def getRepositoryUsername() {
-    return hasProperty('SONATYPE_USERNAME') ? SONATYPE_USERNAME : ""
+def getRepositoryUser() {
+    return hasProperty('SONATYPE_USER') ? SONATYPE_USER : ""
 }
 
-def getRepositoryPassword() {
-    return hasProperty('SONATYPE_PASSWORD') ? SONATYPE_PASSWORD : ""
+def getRepositoryToken() {
+    return hasProperty('SONATYPE_TOKEN') ? SONATYPE_TOKEN : ""
 }
 
-afterEvaluate { project ->
-    uploadArchives {
-        //noinspection GradleMisplacedStatement
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+def getReleaseUrl() {
+    return isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
+}
 
-                pom.groupId = 'bz.tsung.android'
-                pom.artifactId = 'evernote'
-                pom.version = VERSION_NAME
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId=GROUP
+                version=VERSION_NAME
+                artifactId=POM_ARTIFACT_ID
 
-                repository(url: getReleaseRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-                snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-
-                pom.project {
-                    name 'Android-Evernote-Yinxiang SDK'
-                    packaging 'aar'
-                    description 'Android library to access the Evernote/Yinxiang API.'
-                    url 'https://github.com/ionull/evernote-sdk-android'
-                    inceptionYear '2020'
+                pom {
+                    name=POM_NAME
+                    packaging=POM_PACKAGING
+                    description=POM_DESCRIPTION
+                    url=POM_URL
+                    inceptionYear='2020'
 
                     scm {
-                        url 'http://github.com/ionull/evernote-sdk-android/'
-                        connection 'scm:git:git://github.com/ionull/evernote-sdk-android.git'
-                        developerConnection 'scm:git:git@github.com:ionull/evernote-sdk-android.git'
-                    }
-
-                    developers {
-                        developer {
-                            name 'Tsung Wu'
-                            email 'tsung.bz@gmail.com'
-                            id 'ionull'
-                            timezone '+8'
-                            roles {
-                                role 'developer'
-                            }
-                        }
+                        url=POM_SCM_URL
+                        connection=POM_SCM_CONNECTION
+                        developerConnection=POM_SCM_DEV_CONNECTION
                     }
 
                     licenses {
                         license {
-                            name 'Yinxiang SDK License Agreement'
-                            url 'https://github.com/yinxiang-dev/evernote-sdk-android/blob/master/README.md'
-                            distribution 'repo'
+                            name=POM_LICENCE_NAME
+                            url=POM_LICENCE_URL
+                            distribution=POM_LICENCE_DIST
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id=POM_DEVELOPER_ID
+                            name=POM_DEVELOPER_NAME
                         }
                     }
 
                     organization {
-                        name 'Yinxiang Biji'
-                        url 'http://yinxiang.com'
+                        name='Yinxiang Biji'
+                        url='http://yinxiang.com'
                     }
 
                     issueManagement {
-                        system 'GitHub Issues'
-                        url 'https://github.com/ionull/evernote-sdk-android/issues'
+                        system='GitHub Issues'
+                        url='https://github.com/ionull/evernote-sdk-android/issues'
                     }
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "sonatype"
+                url = getReleaseUrl()
+
+                credentials {
+                    username getRepositoryUser()
+                    password getRepositoryToken()
                 }
             }
         }
     }
 
     signing {
-        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
+        sign publishing.publications
     }
 
-    task androidJavadocs2(type: Javadoc) {
-        failOnError = false
-        source = android.sourceSets.main.java.sourceFiles
+    task androidJavadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        android.libraryVariants.all { variant ->
+            if (variant.name == 'release') {
+                owner.classpath += variant.javaCompileProvider.get().classpath
+            }
+        }
+
+        exclude '**/R.html', '**/R.*.html', '**/index.html'
+        options.encoding 'utf-8'
+        options {
+            addStringOption 'docencoding', 'utf-8'
+            addStringOption 'charset', 'utf-8'
+            links 'https://docs.oracle.com/javase/7/docs/api/'
+            links 'https://d.android.com/reference'
+            links 'https://developer.android.com/reference/androidx/'
+        }
     }
 
-    task androidJavadocsJar2(type: Jar, dependsOn: androidJavadocs2) {
-        classifier = 'javadoc'
-        //basename = artifact_id
-        from androidJavadocs2.destinationDir
+    task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
+        archiveClassifier.set('javadoc')
+        from androidJavadoc.destinationDir
+
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
     }
 
-    task androidSourcesJar2(type: Jar) {
-        classifier = 'sources'
-        //basename = artifact_id
-        from android.sourceSets.main.java.sourceFiles
-    }
+    task javaSourcesJar(type: Jar) {
+        archiveClassifier.set('sources')
+        from android.sourceSets.main.java.srcDirs
 
-    artifacts {
-        //archives packageReleaseJar
-        archives androidSourcesJar2
-        archives androidJavadocsJar2
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
     }
 }
